@@ -1,22 +1,20 @@
 import express from 'express'
 import createError from 'http-errors'
 import logger from 'morgan'
+import homeRoutes from './routes/homeRoutes.js'
+import productRoutes from './routes/productRoutes.js'
+import loginRoute from './routes/loginRoute.js'
 
 const app = express()
 
 //middlewares
 app.use(express.json())
-
 app.use(logger('dev'))
 
-app.get('/', (req, res, next) => {
-    res.send('Bienvenido a Nodepop')
-})
-
-
-app.get('/products', (req, res, next) => {
-    res.send('Aquí van los productos')
-})
+//routes
+app.get('/', homeRoutes)
+app.get('/products', productRoutes)
+app.get('/login', loginRoute)
 
 // error object with error code
 app.use((req, rest , next) => {
