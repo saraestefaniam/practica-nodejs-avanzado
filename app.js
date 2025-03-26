@@ -4,6 +4,9 @@ import logger from 'morgan'
 import homeRoutes from './routes/homeRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import loginRoute from './routes/loginRoute.js'
+import connectMongoose from './mongoose/connectMongoose.js'
+
+await connectMongoose()
 
 const app = express()
 
