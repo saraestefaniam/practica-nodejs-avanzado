@@ -1,10 +1,13 @@
 import express from 'express'
+import createError from 'http-errors'
+import logger from 'morgan'
 
 const app = express()
 
 //middlewares
 app.use(express.json())
 
+app.use(logger('dev'))
 
 app.get('/', (req, res, next) => {
     res.send('Bienvenido a Nodepop')
@@ -17,9 +20,7 @@ app.get('/products', (req, res, next) => {
 
 // error object with error code
 app.use((req, rest , next) => {
-    const error = new Error('página no encontrada')
-    error.status = 400 //user error
-    next(error)
+    next(createError(404))
 })
 
 //Middleware error handler
