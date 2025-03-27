@@ -1,7 +1,7 @@
 import express from 'express'
-import { loginPage } from '../controllers/loginController.js'
+import { loginUser } from '../controllers/loginController.js'
 
 const loginRoute = express.Router()
-loginRoute.get('/login', loginPage)
+loginRoute.get('/login', loginUser)
 
 export default loginRoute
