@@ -3,9 +3,9 @@ import {productsPage, createProduct, paginateProducts} from "../controllers/prod
 
 const productRoutes = express.Router()
 
-productRoutes.get('/products', productsPage)
-productRoutes.post('products', createProduct)
-productRoutes.post('/products', paginateProducts)
+productRoutes.get('/', productsPage)
+productRoutes.post('/', createProduct)
+productRoutes.post('/', paginateProducts)
 
 export default productRoutes
 

@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= appName %></title>
-</head>
-<body>
-    <h1>Products available</h1>
+<%- include('header.html') %>
+<p>User ID: <%= session.usersId %></p>
+
+<% if (!session.usersId) { %>
+    <p><a href="/login">Login</a> to access and manage your products</p>
+<% } else { %>
+    <h1>Products</h1>
     <% products.forEach(product => {%>
-        <p><%= product.name %> cost $<%=product.price %> </p>
-    <%}) %>
-</body>
-</html>
+        <p><%= product.name %> cost $<%= product.price %></p>
+    <% }) %>
+<% } %>
+<%- include('footer.html') %>
+

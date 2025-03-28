@@ -28,17 +28,16 @@ export async function loginUser(req, res, next) {
             res.locals.error = 'Invalid credentials'
             res.locals.email = email
             res.render('loginView')
-            return
+            return 
         }
-        res.redirect('/')
-        
+
+        console.log(req.session)
         req.session.usersId = users.id
         res.redirect(redir ? redir : '/')
-    } catch (error) {
+        } catch (error) {
         next(error)
     }
 }
-
 
 export function logoutUser(req, res, next) {
     req.session.regenerate(err => {

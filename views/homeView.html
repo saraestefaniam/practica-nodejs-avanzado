@@ -1,5 +1,9 @@
 <%- include('header.html') %>
 
+    <p>User ID: <%= session.usersId %></p>
+    <% if (session.usersId) { %>
+        <p>You can go to <a href="/products">products</a> now</p>
+    <% } %>
 
 <%- include('footer.html') %>
 

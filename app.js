@@ -18,12 +18,20 @@ app.set('view engine', 'html')
 app.engine('html', ejs.__express)
 app.locals.appName = 'NodePop'
 
+
+
 //middlewares
 app.use(express.json())
 app.use(logger('dev'))
+app.use(express.urlencoded({ extended: false }))
+
 
 //routes
 app.use(sessionManager.middleware)
+app.use((req, res, next) => {
+    res.locals.session = req.session
+    next()
+})
 app.use('/', homeRoutes)
 app.use('/products', productRoutes)
 app.use('/login', loginRoute)
