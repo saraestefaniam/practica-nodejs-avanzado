@@ -22,9 +22,9 @@ async function initUsers() {
     console.log('Users deleted')
     //ad users
     const insertUsers = await Users.insertMany([
-        { _id: new mongoose.Types.ObjectId(), name: 'Alice', email: 'alice@example.com', password: 'pass123' },
-        { _id: new mongoose.Types.ObjectId(), name: 'Bob', email: 'bob@example.com', password: 'pass456' },
-        { _id: new mongoose.Types.ObjectId(), name: 'Charlie', email: 'charlie@example.com', password: 'pass789' }
+        { _id: new mongoose.Types.ObjectId(), name: 'Alice', email: 'alice@example.com', password: await Users.hashPassword('pass123')},
+        { _id: new mongoose.Types.ObjectId(), name: 'Bob', email: 'bob@example.com', password: await Users.hashPassword('pass456') },
+        { _id: new mongoose.Types.ObjectId(), name: 'Charlie', email: 'charlie@example.com', password: await Users.hashPassword('pass789') }
     ])
     console.log(insertUsers)
 }
@@ -43,11 +43,11 @@ async function initProducts() {
 
     //add products
     const insertProducts = await Products.insertMany([
-        { name: 'Laptop', owner: userFound[0]._id, price: 1200, photo: 'laptop.jpg', tags: ['work', 'lifestyle'] },
-        { name: 'Bicicleta', owner: userFound[1]._id, price: 500, photo: 'bici.jpg', tags: ['lifestyle', 'motor'] },
-        { name: 'iPhone 15', owner: userFound[2]._id, price: 1100, photo: 'iphone.jpg', tags: ['mobile', 'lifestyle'] },
-        { name: 'Monitor 4K', owner: userFound[0]._id, price: 300, photo: 'monitor.jpg', tags: ['work'] },  
-        { name: 'Moto Yamaha', owner: userFound[1]._id, price: 3500, photo: 'moto.jpg', tags: ['motor'] }, 
+        { name: 'Laptop', owner: userFound[0]._id, price: 1200, photo: './photos/laptop.jpg', tags: ['work', 'lifestyle'] },
+        { name: 'Bicicleta', owner: userFound[1]._id, price: 500, photo: './photos/bici.jpg', tags: ['lifestyle', 'motor'] },
+        { name: 'iPhone 15', owner: userFound[2]._id, price: 1100, photo: './photos/iphone.jpg', tags: ['mobile', 'lifestyle'] },
+        { name: 'Monitor 4K', owner: userFound[0]._id, price: 300, photo: './photos/monitor.jpg', tags: ['work'] },  
+        { name: 'Moto Yamaha', owner: userFound[1]._id, price: 3500, photo: './photos/moto.jpg', tags: ['motor'] }, 
     ])
     console.log(insertProducts)
 }
