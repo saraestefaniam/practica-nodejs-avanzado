@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env PORT=3000 nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "initDB": "node initDB.js"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +21,8 @@
     "mkdirp": "^3.0.1",
     "mongoose": "^8.13.0",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.2"
+    "multer": "^1.4.5-lts.2",
+    "readline": "^1.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
