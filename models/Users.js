@@ -10,6 +10,12 @@ const usersSchema = new mongoose.Schema({
 usersSchema.statics.hashPassword = (clearPassword) => {
     return bcrypt.hash(clearPassword, 7)
 }
+
+//note: in instance methods we don't use arrow functions so we don't change the "this" added by Mongoose
+usersSchema.methods.comparePassword = function(clearPassword) {
+    return bcrypt.compare(clearPassword, this.password)
+}
+
 const Users = mongoose.model('Users', usersSchema)
 
 export default Users

@@ -4,15 +4,16 @@ import logger from 'morgan'
 import homeRoutes from './routes/homeRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import loginRoute from './routes/loginRoute.js'
-import connectMongoose from './mongoose/connectMongoose.js'
+import connectMongoose from './lib/connectMongoose.js'
 import ejs from 'ejs'
+import * as sessionManager from './lib/sessionManager.js'
 
 await connectMongoose()
 
 const app = express()
 
 app.set('views', 'views') 
-app.set('view engine', 'ejs')
+//app.set('view engine', 'ejs')
 app.set('view engine', 'html')
 app.engine('html', ejs.__express)
 app.locals.appName = 'NodePop'
@@ -22,9 +23,10 @@ app.use(express.json())
 app.use(logger('dev'))
 
 //routes
-app.get('/', homeRoutes)
-app.get('/products', productRoutes)
-app.get('/login', loginRoute)
+app.use(sessionManager.middleware)
+app.use('/', homeRoutes)
+app.use('/products', productRoutes)
+app.use('/login', loginRoute)
 
 // error object with error code
 app.use((req, rest , next) => {

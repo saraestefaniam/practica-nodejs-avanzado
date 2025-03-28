@@ -1,6 +1,6 @@
 import readline from 'node:readline'
 import mongoose from 'mongoose'
-import connectMongoose from './mongoose/connectMongoose.js'
+import connectMongoose from './lib/connectMongoose.js'
 import Products from './models/Products.js'
 import Users from './models/Users.js'
 
