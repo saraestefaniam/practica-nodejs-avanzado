@@ -9,19 +9,20 @@ import ejs from 'ejs'
 import * as sessionManager from './lib/sessionManager.js'
 import { logoutUser } from './controllers/loginController.js'
 
+
 await connectMongoose()
 
 const app = express()
-
-app.set('views', 'views') 
-app.set('view engine', 'html')
-app.engine('html', ejs.__express)
-app.locals.appName = 'NodePop'
 
 //middlewares
 app.use(express.json())
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
+
+app.set('views', 'views') 
+app.set('view engine', 'html')
+app.engine('html', ejs.__express)
+app.locals.appName = 'NodePop'
 
 //routes
 app.use(sessionManager.middleware)
@@ -30,6 +31,7 @@ app.use('/', homeRoutes)
 app.use('/products', productRoutes)
 app.use('/login', loginRoute)
 app.get('/logout', logoutUser)
+
 
 // error object with error code
 app.use((req, rest , next) => {
@@ -41,5 +43,6 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500) //if we don't know where the error is coming from we assume it's ours
     res.send('Something went wrong: ' + err.message)
 })
+
 
 export default app

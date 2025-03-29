@@ -1,11 +1,12 @@
 import express from 'express'
-import {productsPage, createProduct, paginateProducts} from "../controllers/productsController.js";
+import { productsPage, createProduct} from "../controllers/productsController.js";
+
 
 const productRoutes = express.Router()
 
 productRoutes.get('/', productsPage)
-productRoutes.post('/', createProduct)
-productRoutes.post('/', paginateProducts)
+productRoutes.post('/create', createProduct)
+
 
 export default productRoutes
 

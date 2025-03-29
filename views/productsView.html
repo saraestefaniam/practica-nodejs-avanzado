@@ -1,13 +1,30 @@
 <%- include('header.html') %>
-<p>User ID: <%= session.usersId %></p>
+
+<p>User: ID: <%= session.usersId %></p>
 
 <% if (!session.usersId) { %>
     <p><a href="/login">Login</a> to access and manage your products</p>
 <% } else { %>
     <h1>Products</h1>
-    <% products.forEach(product => {%>
-        <p><%= product.name %> cost $<%= product.price %></p>
-    <% }) %>
-<% } %>
+
+    <% if (products.length === 0) { %>
+        <p>No products available.</p>
+    <% } else { %>
+        <div>
+            <% products.forEach(product => { %>
+                <p><%= product.name%> cost $<%= product.price %></p>
+            <% }) %>
+        </div>
+        <div>
+            <% if (currentPage > 1) {%>
+                <a href="?skip=<%= currentPage - 2 %>&limit=<% limit %>&sort=<%= sort %>&tag=<%= tag %>">Previous</a>
+            <% } %>
+            <% if (currentPage < totalPages) {%>
+                <a href="?skip=<%= currentPage * limit %>&limit=<% limit %>&sort=<%= sort %>&tag=<%= tag %>">Next</a>
+            <% } %>
+        </div>
+    <% } %>
+<%} %>
+
 <%- include('footer.html') %>
 
