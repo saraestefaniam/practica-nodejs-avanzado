@@ -22,9 +22,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="/products">Products</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/products/new">Add products</a>
-              </li>
+              <% if (session.usersId) { %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/products/new">Add products</a>
+                </li>
+              <% } %>
             </ul>
             <% if (!session.usersId) { %>
               <a class="btn btn-success" href="/login">Login</a>

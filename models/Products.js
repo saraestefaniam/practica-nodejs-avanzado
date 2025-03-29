@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
 const productsSchema = new mongoose.Schema({
-    name: {type: String, required: true, index: true},
-    owner: {ref: 'Users', type: mongoose.Schema.Types.ObjectId, required: true},
-    price: {type: Number, required: true, index: true},
-    photo:{type: String, required: true},
+    name: {type: String, index: true},
+    owner: {ref: 'Users', type: mongoose.Schema.Types.ObjectId},
+    price: {type: Number, index: true},
+    photo:{type: String},
     tags: {type: [String], required: true, index: true}
 })
 

@@ -47,9 +47,22 @@ export async function productsPage (req, res, next) {
     }
 }
 
-export function createProduct (req, res, next) {
+export function createProductPage(req, res, next) {
     res.render('productsNewView')
-    next()
+}
+
+export async function createProduct (req, res, next) {
+    try {
+        const {name, price, tags } = req.body
+
+        const product = new Products({name, price, tags})
+
+        await product.save()
+        res.redirect('/')
+
+    } catch(error) {
+        next(error)
+    }
 }
 
 export function deteleProduct (req, res, next) {
