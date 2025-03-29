@@ -7,6 +7,7 @@ import loginRoute from './routes/loginRoute.js'
 import connectMongoose from './lib/connectMongoose.js'
 import ejs from 'ejs'
 import * as sessionManager from './lib/sessionManager.js'
+import { logoutUser } from './controllers/loginController.js'
 
 await connectMongoose()
 
@@ -28,13 +29,11 @@ app.use(express.urlencoded({ extended: false }))
 
 //routes
 app.use(sessionManager.middleware)
-app.use((req, res, next) => {
-    res.locals.session = req.session
-    next()
-})
+app.use(sessionManager.useSessionInViews)
 app.use('/', homeRoutes)
 app.use('/products', productRoutes)
 app.use('/login', loginRoute)
+app.get('/logout', logoutUser)
 
 // error object with error code
 app.use((req, rest , next) => {

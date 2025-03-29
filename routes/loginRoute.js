@@ -5,4 +5,5 @@ const loginRoute = express.Router()
 loginRoute.get('/', index)
 loginRoute.post('/', loginUser)
 
+
 export default loginRoute
