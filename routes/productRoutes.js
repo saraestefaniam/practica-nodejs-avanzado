@@ -5,7 +5,7 @@ import { productsPage, createProduct} from "../controllers/productsController.js
 const productRoutes = express.Router()
 
 productRoutes.get('/', productsPage)
-productRoutes.post('/create', createProduct)
+productRoutes.get('/new', createProduct)
 
 
 export default productRoutes
