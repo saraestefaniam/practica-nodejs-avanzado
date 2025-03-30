@@ -1,7 +1,10 @@
 <%- include('header.html') %>
 
     <p>User ID: <%= session.usersId %></p>
-    <% if (session.usersId) { %>
+    <% if (!session.usersId) { %>
+        <p>You need to <a href="/login">login</a> to see products</p>
+
+    <% } else { %>
         <p>You can go to <a href="/products">products</a> now</p>
     <% } %>
 

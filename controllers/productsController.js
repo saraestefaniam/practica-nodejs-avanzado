@@ -71,7 +71,6 @@ export async function createProduct (req, res, next) {
 }
 
 
-
 export async function deleteProduct (req, res, next) {
     try {
         const usersId = req.session.usersId
