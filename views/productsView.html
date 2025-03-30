@@ -6,7 +6,36 @@
     <p><a href="/login">Login</a> to access and manage your products</p>
 <% } else { %>
     <h1>Products</h1>
+    <div>
+        <form action="/products" method="GET">
+            <label for="tag">Filter by Name:</label>
+            <input type="text" name="name" id="name" value="<%= name || '' %>">
 
+            <label for="tag">Filter by Tag:</label>
+            <select name="tag" id="tag" onchange="this.form.submit()">
+                <option value="">Select a Tag</option>
+                <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>>Lifestyle</option>
+                <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>>Mobile</option>
+                <option value="work" <%= tag === 'work' ? 'selected' : '' %>>Work</option>
+                <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>>Motor</option>
+            </select>
+        
+            <label for="tenToFifty">$10 to $50</label>
+            <input type="checkbox" name="tenToFifty" value="true" <%= tenToFifty ? 'checked' : '' %>>
+        
+            <label for="moreThanTen">More than $10</label>
+            <input type="checkbox" name="moreThanTen" value="true" <%= moreThanTen ? 'checked' : '' %>>
+        
+            <label for="lessThanFifty">Menor a $50</label>
+            <input type="checkbox" name="lessThanFifty" value="true" <%= lessThanFifty ? 'checked' : '' %>>
+        
+            <label for="fifty">Igual a $50</label>
+            <input type="checkbox" name="fifty" value="true" <%= fifty ? 'checked' : '' %>>
+        
+            <button type="submit">Filtrar</button>
+        </form>
+    </div>
+    
     <% if (products.length === 0) { %>
         <p>No products available.</p>
     <% } else { %>
