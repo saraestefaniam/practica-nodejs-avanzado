@@ -74,9 +74,10 @@ export async function createProduct (req, res, next) {
 
 export async function deleteProduct (req, res, next) {
     try {
+        const usersId = req.session.usersId
         const productsId = req.params.productsId
-        await Products.deleteOne({_id: productsId})
-        res.redirect('/')
+        await Products.deleteOne({_id: productsId, owner: usersId})
+        res.redirect('/products')
     } catch (error) {
         next(error)
     }
