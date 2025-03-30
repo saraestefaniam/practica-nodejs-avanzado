@@ -2,8 +2,10 @@ import Products from "../models/Products.js"
 
 
 export async function productsPage (req, res, next) {
+    
     const { tag, tenToFifty, moreThanTen, lessThanFifty, fifty, name, skip = 0, limit = 10, sort = 'name' } = req.query
     const filters = {}
+
 
     if (tag) filters.tags = tag
     if (tenToFifty) {
@@ -21,6 +23,8 @@ export async function productsPage (req, res, next) {
         const skipValue = Number(skip) || 0
         const limitValue = Number(limit) || 10
 
+        const usersId = req.session.usersId
+        filters.owner = usersId
         
         const products = await Products.find(filters)
             .skip(skipValue)
@@ -54,8 +58,9 @@ export function createProductPage(req, res, next) {
 export async function createProduct (req, res, next) {
     try {
         const {name, price, tags } = req.body
+        const usersId = req.session.usersId
 
-        const product = new Products({name, price, tags})
+        const product = new Products({name, price, tags, owner: usersId})
 
         await product.save()
         res.redirect('/')
@@ -65,6 +70,14 @@ export async function createProduct (req, res, next) {
     }
 }
 
-export function deteleProduct (req, res, next) {
-    pass
+
+
+export async function deleteProduct (req, res, next) {
+    try {
+        const productsId = req.params.productsId
+        await Products.deleteOne({_id: productsId})
+        res.redirect('/')
+    } catch (error) {
+        next(error)
+    }
 }
