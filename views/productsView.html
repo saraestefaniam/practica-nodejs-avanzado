@@ -1,58 +1,58 @@
 <%- include('header.html') %>
 
-<p>User: ID: <%= session.usersId %></p>
+<p><%= __('User ID:') %> <%= session.usersId %></p>
 
 <% if (!session.usersId) { %>
-    <p><a href="/login">Login</a> to access and manage your products</p>
+    <p><%- __('<a href="/login">Login</a> to access and manage your products') %></p>
 <% } else { %>
-    <h1>Products</h1>
+    <h1><%= __('Products') %></h1>
     <div>
         <form action="/products" method="GET">
-            <label for="tag">Filter by Name:</label>
+            <label for="tag"><%= __('Filter by Name:') %></label>
             <input type="text" name="name" id="name" value="<%= name || '' %>">
 
-            <label for="tag">Filter by Tag:</label>
+            <label for="tag"><%= __('Filter by Tag:') %></label>
             <select name="tag" id="tag" onchange="this.form.submit()">
-                <option value="">Select a Tag</option>
-                <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>>Lifestyle</option>
-                <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>>Mobile</option>
-                <option value="work" <%= tag === 'work' ? 'selected' : '' %>>Work</option>
-                <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>>Motor</option>
+                <option value=""><%= __('Select a Tag') %></option>
+                <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>><%= __('Lifestyle') %></option>
+                <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>><%= __('Mobile') %></option>
+                <option value="work" <%= tag === 'work' ? 'selected' : '' %>><%= __('Work') %></option>
+                <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>><%= __('Motor') %></option>
             </select>
         
-            <label for="tenToFifty">$10 to $50</label>
+            <label for="tenToFifty"><%= __('$10 to $50') %></label>
             <input type="checkbox" name="tenToFifty" value="true" <%= tenToFifty ? 'checked' : '' %>>
         
-            <label for="moreThanTen">More than $10</label>
+            <label for="moreThanTen"><%= __('More than $10') %></label>
             <input type="checkbox" name="moreThanTen" value="true" <%= moreThanTen ? 'checked' : '' %>>
         
-            <label for="lessThanFifty">Menor a $50</label>
+            <label for="lessThanFifty"><%= __('Less than $50') %></label>
             <input type="checkbox" name="lessThanFifty" value="true" <%= lessThanFifty ? 'checked' : '' %>>
         
-            <label for="fifty">Igual a $50</label>
+            <label for="fifty"><%= __('Equal to $50') %></label>
             <input type="checkbox" name="fifty" value="true" <%= fifty ? 'checked' : '' %>>
         
-            <button type="submit">Filtrar</button>
+            <button type="submit"><%= __('Filter') %></button>
         </form>
     </div>
     
     <% if (products.length === 0) { %>
-        <p>No products available.</p>
+        <p><%= __('No products available.') %></p>
     <% } else { %>
         <div>
             <% products.forEach(product => { %>
                 <p>
-                    <%= product.name%> cost $<%= product.price %>
+                    <%= __('{{name}} cost {{price}}', product ) %>
                     <a href="/products/delete/<%= product._id %>"><i class="bi bi-trash3"></i></a>
                 </p>
             <% }) %>
         </div>
         <div>
             <% if (currentPage > 1) {%>
-                <a href="?skip=<%= currentPage - 2 %>&limit=<% limit %>&sort=<%= sort %>&tag=<%= tag %>">Previous</a>
+                <a href="?skip=<%= currentPage - 2 %>&limit=<% limit %>&sort=<%= sort %>&tag=<%= tag %>"><%= __('Previous') %></a>
             <% } %>
             <% if (currentPage < totalPages) {%>
-                <a href="?skip=<%= currentPage * limit %>&limit=<% limit %>&sort=<%= sort %>&tag=<%= tag %>">Next</a>
+                <a href="?skip=<%= currentPage * limit %>&limit=<% limit %>&sort=<%= sort %>&tag=<%= tag %>"><%= __('Next') %></a>
             <% } %>
         </div>
     <% } %>

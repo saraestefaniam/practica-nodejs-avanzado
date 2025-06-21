@@ -1,29 +1,29 @@
 <%- include('header.html') %>
 
 <div class="container">
-    <h2>Add new product</h2>
+    <h2><%= __('Add new product') %></h2>
     <form method="POST">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Name</label>
+          <label for="exampleInputEmail1" class="form-label"><%= __('Name') %></label>
           <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Price</label>
+          <label for="exampleInputPassword1" class="form-label"><%= __('Price') %></label>
           <input type="number" name="price" class="form-control" id="exampleInputPassword1">
         </div>
         <fieldset class="field">
-            <legend>Tags</legend>
-            <label for="brand">Mobile</label>
+            <legend><%= __('Tags') %></legend>
+            <label for="brand"><%= __('Mobile') %></label>
                 <input type="checkbox" name="mobile">
-            <label for="content">Motor</label>
+            <label for="content"><%= __('Motor') %></label>
                 <input type="checkbox" name="motor">
-            <label for="photo">Lifestyle</label>
+            <label for="photo"><%= __('Lifestyle') %></label>
                 <input type="checkbox" name="lifestyle">
-            <label for="photo">Work</label>
+            <label for="photo"><%= __('Work') %></label>
                 <input type="checkbox" name="work">
         </fieldset>
         <div style="padding-top: 15px;">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary"><%= __('Submit') %></button>
         </div>
         
       </form>
