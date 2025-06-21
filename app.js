@@ -9,6 +9,7 @@ import ejs from 'ejs'
 import * as sessionManager from './lib/sessionManager.js'
 import { logoutUser } from './controllers/loginController.js'
 import i18n from './lib/i18nConfigure.js'
+import { changeLocale } from './controllers/localeController.js'
 
 
 await connectMongoose()
@@ -29,6 +30,7 @@ app.locals.appName = 'NodePop'
 app.use(sessionManager.middleware)
 app.use(sessionManager.useSessionInViews)
 app.use(i18n.init)
+app.get('/change-locale/:locale', changeLocale)
 app.use('/', homeRoutes)
 app.use('/products', productRoutes)
 app.use('/login', loginRoute)
