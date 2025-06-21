@@ -10,6 +10,7 @@ import * as sessionManager from './lib/sessionManager.js'
 import { logoutUser } from './controllers/loginController.js'
 import i18n from './lib/i18nConfigure.js'
 import { changeLocale } from './controllers/localeController.js'
+import cookieParser from 'cookie-parser'
 
 
 await connectMongoose()
@@ -27,6 +28,7 @@ app.engine('html', ejs.__express)
 app.locals.appName = 'NodePop'
 
 //routes
+app.use(cookieParser())
 app.use(sessionManager.middleware)
 app.use(sessionManager.useSessionInViews)
 app.use(i18n.init)
