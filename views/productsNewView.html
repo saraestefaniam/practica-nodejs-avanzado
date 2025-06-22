@@ -2,7 +2,7 @@
 
 <div class="container">
     <h2><%= __('Add new product') %></h2>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label"><%= __('Name') %></label>
           <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -10,6 +10,10 @@
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label"><%= __('Price') %></label>
           <input type="number" name="price" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+          <label for="customFile" class="form-label"><%= __('Photo') %></label>
+          <input type="file" name="photo" class="form-control" id="customFile">
         </div>
         <fieldset class="field">
             <legend><%= __('Tags') %></legend>

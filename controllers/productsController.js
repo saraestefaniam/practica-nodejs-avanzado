@@ -60,6 +60,9 @@ export async function createProduct (req, res, next) {
         const {name, price, tags } = req.body
         const usersId = req.session.usersId
 
+        console.log(req.file)
+        console.log(req.body)
+
         const product = new Products({name, price, tags, owner: usersId})
 
         await product.save()
