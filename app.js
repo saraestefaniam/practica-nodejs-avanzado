@@ -11,16 +11,19 @@ import { logoutUser } from './controllers/loginController.js'
 import i18n from './lib/i18nConfigure.js'
 import { changeLocale } from './controllers/localeController.js'
 import cookieParser from 'cookie-parser'
+import path from 'node:path'
 
 
 await connectMongoose()
 
 const app = express()
+const publicPath = path.join(import.meta.dirname, 'public');
 
 //middlewares
 app.use(express.json())
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static(publicPath));
 
 app.set('views', 'views') 
 app.set('view engine', 'html')

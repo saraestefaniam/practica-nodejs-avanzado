@@ -59,8 +59,13 @@ export async function createProduct (req, res, next) {
     try {
         const {name, price, tags } = req.body
         const usersId = req.session.usersId
+        let photoFileName = ''
 
-        const product = new Products({name, price, photo: req.file.filename, tags, owner: usersId})
+        if (req.file) {
+            photoFileName = req.file.filename
+        }
+        
+        const product = new Products({name, price, photo: photoFileName, tags, owner: usersId})
 
         await product.save()
         res.redirect('/')
