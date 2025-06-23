@@ -8,6 +8,14 @@ const productsSchema = new mongoose.Schema({
     tags: {type: [String], required: true, index: true}
 })
 
+productsSchema.statics.list = function(filter, limit, skip, sort) {
+    const query = Products.find(filter)
+    query.limit(limit)
+    query.skip(skip)
+    query.sort(sort)
+    return query.exec()
+}
+
 const Products = mongoose.model('Products', productsSchema)
 
 export default Products

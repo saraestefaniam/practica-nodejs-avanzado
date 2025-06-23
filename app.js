@@ -12,6 +12,7 @@ import i18n from './lib/i18nConfigure.js'
 import { changeLocale } from './controllers/localeController.js'
 import cookieParser from 'cookie-parser'
 import path from 'node:path'
+import apiProductsController from './controllers/api/apiProductsController.js'
 
 
 await connectMongoose()
@@ -29,6 +30,10 @@ app.set('views', 'views')
 app.set('view engine', 'html')
 app.engine('html', ejs.__express)
 app.locals.appName = 'NodePop'
+
+//API routes
+app.get('/api/products', apiProductsController.list)
+
 
 //routes
 app.use(cookieParser())
