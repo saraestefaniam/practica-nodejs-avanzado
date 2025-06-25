@@ -16,10 +16,17 @@ async function list(req, res, next) {
 
         const filters = {}
 
+        const usersId = req.session?.usersId
+        if (!usersId) {
+            return res.status(401).json({ error: 'You must be logged in' })
+        }
+
+        filters.owner = usersId
+
         // Filtro por tag
         if (tag) filters.tags = tag
 
-        // Filtros de precio (solo se aplica uno por orden de prioridad)
+        // Filtros de precio
         if (tenToFifty === 'true') {
         filters.price = { $gte: 10, $lte: 50 }
         } else if (moreThanTen === 'true') {
@@ -30,14 +37,11 @@ async function list(req, res, next) {
         filters.price = { $eq: 50 }
         }
 
-        // Filtro por nombre (insensible a mayúsculas, empieza por)
+        // Filtro por nombre
         if (name) filters.name = new RegExp('^' + name, 'i')
         
         const skipValue = Number(skip)
         const limitValue = Number(limit)
-
-        const usersId = req.session?.usersId
-        if (usersId) filters.owner.usersId
         
         const products = await Products.find(filters)
             .skip(skipValue)
