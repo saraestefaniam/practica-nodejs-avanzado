@@ -51,7 +51,7 @@ async function list(req, res, next) {
         
         const totalProducts = await Products.countDocuments(filters)
 
-        res.json({
+        res.status(200).json({
             results: products,
             pagination: {
                 total: totalProducts,
@@ -83,7 +83,7 @@ async function getProductById(req, res, next) {
             return res.status(404).json({ error: 'Private information' })
         }
 
-        res.json({
+        res.status(200).json({
             results: product
         })
 
@@ -93,4 +93,35 @@ async function getProductById(req, res, next) {
     }
 }
 
-export default { list, getProductById }
+async function postNewProduct(req, res, next) {
+    try {
+        const { name, price, tags } = req.body
+        const usersId = req.session.usersId
+
+        if (!name || !price) {
+            return res.status(400).json({ error: 'Name and price are required' })
+        }
+
+        let photoFileName = ''
+        if (req.file) {
+            photoFileName = req.file.filename
+        }
+
+        const product = new Products({
+            name,
+            price,
+            photo: photoFileName,
+            tags,
+            owner: usersId
+        })
+
+        await product.save()
+
+        res.status(201).json({ result: product })
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+export default { list, getProductById, postNewProduct }

@@ -13,6 +13,7 @@ import { changeLocale } from './controllers/localeController.js'
 import cookieParser from 'cookie-parser'
 import path from 'node:path'
 import apiProductsController from './controllers/api/apiProductsController.js'
+import upload from './lib/uploadConfigure.js'
 
 
 await connectMongoose()
@@ -38,6 +39,7 @@ app.locals.appName = 'NodePop'
 //API routes
 app.get('/api/products', apiProductsController.list)
 app.get('/api/products/:productId', apiProductsController.getProductById)
+app.post('/api/products', upload.single('photo'), apiProductsController.postNewProduct)
 
 
 //routes
