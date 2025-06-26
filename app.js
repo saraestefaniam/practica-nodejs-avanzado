@@ -21,6 +21,10 @@ const app = express()
 const publicPath = path.join(import.meta.dirname, 'public');
 
 //middlewares
+app.use(cookieParser())
+app.use(sessionManager.middleware)
+app.use(sessionManager.useSessionInViews)
+app.use(i18n.init)
 app.use(express.json())
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
@@ -33,13 +37,10 @@ app.locals.appName = 'NodePop'
 
 //API routes
 app.get('/api/products', apiProductsController.list)
+app.get('/api/products/:productId', apiProductsController.getProductById)
 
 
 //routes
-app.use(cookieParser())
-app.use(sessionManager.middleware)
-app.use(sessionManager.useSessionInViews)
-app.use(i18n.init)
 app.get('/change-locale/:locale', changeLocale)
 app.use('/', homeRoutes)
 app.use('/products', productRoutes)

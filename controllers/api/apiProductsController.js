@@ -16,7 +16,7 @@ async function list(req, res, next) {
 
         const filters = {}
 
-        const usersId = req.session?.usersId
+        const usersId = req.session.usersId
         if (!usersId) {
             return res.status(401).json({ error: 'You must be logged in' })
         }
@@ -64,4 +64,33 @@ async function list(req, res, next) {
     }
 }
 
-export default { list }
+async function getProductById(req, res, next) {
+    try {
+        const productId = req.params.productId
+
+        const product = await Products.findById(productId)
+
+        const userId = req.session.usersId
+        if(!userId) {
+            return res.status(401).json({ error: 'You must be logged in' })
+        }
+
+        if(!product) {
+            return res.status(404).json({ error: 'Product not found' })
+        }
+
+        if(String(product.owner) !== String(userId)) {
+            return res.status(404).json({ error: 'Private information' })
+        }
+
+        res.json({
+            results: product
+        })
+
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+export default { list, getProductById }
