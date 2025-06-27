@@ -41,6 +41,7 @@ app.get('/api/products', apiProductsController.list)
 app.get('/api/products/:productId', apiProductsController.getProductById)
 app.post('/api/products', upload.single('photo'), apiProductsController.postNewProduct)
 app.delete('/api/products/:productId', apiProductsController.deleteProduct)
+app.put('/api/products/:productId', upload.single('photo'), apiProductsController.updateProduct)
 
 
 //routes

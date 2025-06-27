@@ -139,5 +139,29 @@ async function deleteProduct(req, res, next) {
     }
 }
 
+async function updateProduct(req, res, next) {
+    try {
+        const usersId = req.session.usersId
+        const productId = req.params.productId
+        const product = await Products.findOne({ _id: productId, owner: usersId })
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' })
+        }
+        
+        const { name, price, tags } = req.body
+        if (name !== undefined) {product.name = name}
+        if (price !== undefined) {product.price = price}
+        if (tags !== undefined) {product.tags = tags}
+        if (req.file) {product.photo = req.file.filename}
 
-export default { list, getProductById, postNewProduct, deleteProduct }
+        await product.save()
+        res.status(200).json({ message: 'Product updated succesfully', product })
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+export default { list, getProductById, postNewProduct, deleteProduct, updateProduct }
