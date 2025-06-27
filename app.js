@@ -40,6 +40,7 @@ app.locals.appName = 'NodePop'
 app.get('/api/products', apiProductsController.list)
 app.get('/api/products/:productId', apiProductsController.getProductById)
 app.post('/api/products', upload.single('photo'), apiProductsController.postNewProduct)
+app.delete('/api/products/:productId', apiProductsController.deleteProduct)
 
 
 //routes

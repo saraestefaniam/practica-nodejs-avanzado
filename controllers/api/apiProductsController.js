@@ -123,5 +123,21 @@ async function postNewProduct(req, res, next) {
     }
 }
 
+async function deleteProduct(req, res, next) {
+    try {
+        const usersId = req.session.usersId
+        const productId = req.params.productId
+        const result = await Products.deleteOne({ _id: productId, owner: usersId })
 
-export default { list, getProductById, postNewProduct }
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ error: 'Product not found' })
+        }
+
+        res.status(200).json({ message: 'The product was deleted successfully' })
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+export default { list, getProductById, postNewProduct, deleteProduct }
