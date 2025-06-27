@@ -14,6 +14,7 @@ import cookieParser from 'cookie-parser'
 import path from 'node:path'
 import apiProductsController from './controllers/api/apiProductsController.js'
 import upload from './lib/uploadConfigure.js'
+import { apiLoginJWT } from './controllers/api/apiLoginController.js'
 
 
 await connectMongoose()
@@ -37,6 +38,7 @@ app.engine('html', ejs.__express)
 app.locals.appName = 'NodePop'
 
 //API routes
+app.post('/api/login', apiLoginJWT)
 app.get('/api/products', apiProductsController.list)
 app.get('/api/products/:productId', apiProductsController.getProductById)
 app.post('/api/products', upload.single('photo'), apiProductsController.postNewProduct)
