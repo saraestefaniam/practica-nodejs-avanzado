@@ -15,6 +15,7 @@ import path from 'node:path'
 import apiProductsController from './controllers/api/apiProductsController.js'
 import upload from './lib/uploadConfigure.js'
 import { apiLoginJWT } from './controllers/api/apiLoginController.js'
+import * as jwtAuth from './lib/jwtAuthMiddleware.js'
 
 
 await connectMongoose()
@@ -39,11 +40,11 @@ app.locals.appName = 'NodePop'
 
 //API routes
 app.post('/api/login', apiLoginJWT)
-app.get('/api/products', apiProductsController.list)
-app.get('/api/products/:productId', apiProductsController.getProductById)
-app.post('/api/products', upload.single('photo'), apiProductsController.postNewProduct)
-app.delete('/api/products/:productId', apiProductsController.deleteProduct)
-app.put('/api/products/:productId', upload.single('photo'), apiProductsController.updateProduct)
+app.get('/api/products', jwtAuth.guard, apiProductsController.list)
+app.get('/api/products/:productId', jwtAuth.guard, apiProductsController.getProductById)
+app.post('/api/products', upload.single('photo'), jwtAuth.guard, apiProductsController.postNewProduct)
+app.delete('/api/products/:productId', jwtAuth.guard, apiProductsController.deleteProduct)
+app.put('/api/products/:productId', upload.single('photo'), jwtAuth.guard, apiProductsController.updateProduct)
 
 
 //routes

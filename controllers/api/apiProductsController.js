@@ -16,7 +16,7 @@ async function list(req, res, next) {
 
         const filters = {}
 
-        const usersId = req.session.usersId
+        const usersId = req.apiUserId
         if (!usersId) {
             return res.status(401).json({ error: 'You must be logged in' })
         }
@@ -70,7 +70,7 @@ async function getProductById(req, res, next) {
 
         const product = await Products.findById(productId)
 
-        const userId = req.session.usersId
+        const userId = req.apiUserId
         if(!userId) {
             return res.status(401).json({ error: 'You must be logged in' })
         }
@@ -96,7 +96,7 @@ async function getProductById(req, res, next) {
 async function postNewProduct(req, res, next) {
     try {
         const { name, price, tags } = req.body
-        const usersId = req.session.usersId
+        const usersId = req.apiUserId
 
         if (!name || !price) {
             return res.status(400).json({ error: 'Name and price are required' })
@@ -125,7 +125,7 @@ async function postNewProduct(req, res, next) {
 
 async function deleteProduct(req, res, next) {
     try {
-        const usersId = req.session.usersId
+        const usersId = req.apiUserId
         const productId = req.params.productId
         const result = await Products.deleteOne({ _id: productId, owner: usersId })
 
@@ -141,7 +141,7 @@ async function deleteProduct(req, res, next) {
 
 async function updateProduct(req, res, next) {
     try {
-        const usersId = req.session.usersId
+        const usersId = req.apiUserId
         const productId = req.params.productId
         const product = await Products.findOne({ _id: productId, owner: usersId })
         
